@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import ContactBook from "@/views/ContactBook.vue";
+import ContactList from "@/components/ContactList.vue";
 
 const routes = [
     {
@@ -7,6 +8,12 @@ const routes = [
         name: "contactbook",
         component: ContactBook,
     },
+    {
+        path: "/contacts",
+        name: "contactlist",
+        component: ContactList,
+    },
+   
 ];
 
 const router = createRouter({
