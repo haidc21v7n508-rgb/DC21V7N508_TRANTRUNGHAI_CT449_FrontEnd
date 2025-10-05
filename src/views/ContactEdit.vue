@@ -25,24 +25,6 @@ export default {
     };
 },
 methods: {
-    async getContact(id) {
-        try {
-            this.contact = await ContactService.get(id);
-        } catch (error) {
-            console.log(error);
-            console.log(error);
-            // Chuyển sang trang NotFound đồng thời giữ cho URL không đổi
-            this.$router.push({
-                name: "notfound",
-                params: {
-                    pathMatch: this.$route.path.split("/").slice(1)
-                },
-                query: this.$route.query,
-                hash: this.$route.hash,
-        });
-    }
-},
-
     async updateContact(data) {
         try {
             await ContactService.update(this.contact._id, data);
@@ -63,6 +45,24 @@ methods: {
             }
         }
     },
+    async getContact(id) {
+    try {
+        this.contact = await ContactService.get(id);
+        if (!this.contact.job) this.contact.job = "";
+
+        // Đảm bảo luôn có trường job tồn tại trong this.contact ngay cả khi API không trả về từ backend
+        // Đảm bảo Vue cần được reactivity theo dõi 
+    } catch (error) {
+        console.log(error);
+        this.$router.push({
+            name: "notfound",
+            params: { pathMatch: this.$route.path.split("/").slice(1) },
+            query: this.$route.query,
+            hash: this.$route.hash,
+        });
+    }
+    },
+
 },
 created() {
     this.getContact(this.id);

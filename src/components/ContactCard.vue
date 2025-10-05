@@ -28,6 +28,11 @@ export default {
       <strong>Điện thoại:</strong> {{ contact.phone }}
     </div>
     <div class="p-1">
+      <strong>Nghề nghiệp:</strong> {{ contact.job ? contact.job : "Chưa có" }}
+    </div>
+    
+
+    <div class="p-1">
       <strong>Liên hệ yêu thích:&nbsp;</strong>
       <i v-if="contact.favorite" class="fas fa-check text-success"></i>
       <i v-else class="fas fa-times text-danger"></i>

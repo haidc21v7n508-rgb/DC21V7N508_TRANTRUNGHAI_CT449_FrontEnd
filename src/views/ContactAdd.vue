@@ -12,6 +12,7 @@ export default {
         email: "",
         address: "",
         phone: "",
+        job: "",
         favorite: false,
       },
       message: "",

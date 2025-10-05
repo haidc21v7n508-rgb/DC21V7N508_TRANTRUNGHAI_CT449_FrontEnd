@@ -16,10 +16,36 @@
       <ErrorMessage name="address" class="error-feedback" />
     </div>
     <div class="form-group">
+    <label for="job">Nghề nghiệp</label>
+  
+  <!-- Dropdown chọn nghề nghiệp -->
+  <select id="job" v-model="selectedJob" class="form-control">
+    <option value="">-- Chọn nghề nghiệp --</option>
+    <option value="Học sinh">Học sinh</option>
+    <option value="Sinh viên">Sinh viên</option>
+    <option value="Khác">Khác</option>
+  </select>
+
+  <!-- Nếu chọn "Khác", hiện ô nhập -->
+  <div v-if="selectedJob === 'Khác'" class="mt-2">
+    <input
+      type="text"
+      v-model="customJob"
+      class="form-control"
+      placeholder="Nhập nghề nghiệp khác..."
+    />
+  </div>
+
+  <ErrorMessage name="job" class="error-feedback" />
+  </div>
+
+    <div class="form-group">
       <label for="phone">Điện thoại</label>
       <Field name="phone" type="tel" class="form-control" v-model="contactLocal.phone" />
       <ErrorMessage name="phone" class="error-feedback" />
     </div>
+
+
     <div class="form-group form-check">
       <input name="favorite" type="checkbox" class="form-check-input" v-model="contactLocal.favorite" />
       <label for="favorite" class="form-check-label">
@@ -71,16 +97,30 @@ export default {
             /((09|03|07|08|05)+([0-9]{8})\b)/g,
             "Số điện thoại không hợp lệ."
         ),
+    job: yup
+        .string()
+        .max(100, "Nghề nghiệp tối đa 100 ký tự."),
+        
+
+        
 });
 return {
     // Chúng ta sẽ không muốn hiệu chỉnh props, nên tạo biến cục bộ
     // contactLocal để liên kết với các input trên form
-    contactLocal: this.contact,
+    contactLocal: { ...this.contact},
     contactFormSchema,
-    };
+    selectedJob: this.contact.job || "", // nghề hiện có (nếu có)
+    customJob: "", // dùng khi chọn "Khác"
+
+  
+  };
 },
 methods: {
     submitContact() {
+    // Nếu chọn "Khác", gán giá trị từ ô nhập vào contactLocal.job
+    this.contactLocal.job =
+        this.selectedJob === "Khác" ? this.customJob : this.selectedJob;
+        
         this.$emit("submit:contact", this.contactLocal);
 },
     deleteContact() {
