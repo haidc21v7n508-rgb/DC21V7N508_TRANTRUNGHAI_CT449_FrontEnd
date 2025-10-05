@@ -13,6 +13,7 @@ export default {
         address: "",
         phone: "",
         job: "",
+        gender: "",
         favorite: false,
       },
       message: "",

@@ -44,7 +44,21 @@
       <Field name="phone" type="tel" class="form-control" v-model="contactLocal.phone" />
       <ErrorMessage name="phone" class="error-feedback" />
     </div>
-
+    <!-- Giới tính -->
+<div class="form-group">
+  <label>Giới tính</label>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" id="male" value="Nam" v-model="contactLocal.gender" name="gender"
+    />
+    <label class="form-check-label" for="male">Nam</label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input" type="radio" id="female" value="Nữ" v-model="contactLocal.gender" name="gender"
+    />
+    <label class="form-check-label" for="female">Nữ</label>
+  </div>
+</div>
 
     <div class="form-group form-check">
       <input name="favorite" type="checkbox" class="form-check-input" v-model="contactLocal.favorite" />
@@ -101,13 +115,13 @@ export default {
         .string()
         .max(100, "Nghề nghiệp tối đa 100 ký tự."),
         
-
+    gender: yup.string().oneOf(["Nam", "Nữ"], "Giới tính không hợp lệ."),
         
 });
 return {
     // Chúng ta sẽ không muốn hiệu chỉnh props, nên tạo biến cục bộ
     // contactLocal để liên kết với các input trên form
-    contactLocal: { ...this.contact},
+    contactLocal: { ...this.contact, gender: this.contact.gender || "" },
     contactFormSchema,
     selectedJob: this.contact.job || "", // nghề hiện có (nếu có)
     customJob: "", // dùng khi chọn "Khác"

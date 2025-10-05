@@ -30,7 +30,10 @@ export default {
     <div class="p-1">
       <strong>Nghề nghiệp:</strong> {{ contact.job ? contact.job : "Chưa có" }}
     </div>
-    
+    <div class="p-1">
+    <strong>Giới tính:</strong>
+      {{ contact.gender ? contact.gender : "Chưa có" }}
+    </div>
 
     <div class="p-1">
       <strong>Liên hệ yêu thích:&nbsp;</strong>

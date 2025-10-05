@@ -49,6 +49,7 @@ methods: {
     try {
         this.contact = await ContactService.get(id);
         if (!this.contact.job) this.contact.job = "";
+        if (!this.contact.gender) this.contact.gender = ""; // Thêm gender để nhất quán
 
         // Đảm bảo luôn có trường job tồn tại trong this.contact ngay cả khi API không trả về từ backend
         // Đảm bảo Vue cần được reactivity theo dõi 
